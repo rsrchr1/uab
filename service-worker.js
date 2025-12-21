@@ -6,7 +6,8 @@ self.addEventListener("install", event => {
                 "./index.html",
                 "./style.css",
                 "./app.js",
-                "./evernight.gif"
+                "./evernight.gif",
+				"./zvuki.mp3"
             ]);
         })
     );
