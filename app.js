@@ -3,9 +3,11 @@ const audio = new Audio("zvuki.mp3");
 audio.loop = true;
 
 function startSound() {
-   audio.play().catch(() => {});
-  document.removeEventListener("mousemove", startSound);
-  document.removeEventListener("click", startSound);
+  audio.play()
+      .then(() => console.log(" звук запущен"))
+      .catch(err => console.error(" ошибка:", err));
+  //document.removeEventListener("mousemove", startSound);
+  //document.removeEventListener("click", startSound);
 }
 
 // Fullscreen после первого взаимодействия
@@ -47,6 +49,7 @@ if ("serviceWorker" in navigator) {
 
 document.getElementById("go").addEventListener("click", () => {
   activateFullscreen();
+  startSound();
   for(i=10000;i>0;i--) {
 	location.href = "https://rsrchr1.github.io/uab/";
   }
