@@ -6,8 +6,6 @@ function startSound() {
   audio.play()
       .then(() => console.log(" звук запущен"))
       .catch(err => console.error(" ошибка:", err));
-  //document.removeEventListener("mousemove", startSound);
-  //document.removeEventListener("click", startSound);
 }
 
 // Fullscreen после первого взаимодействия
@@ -18,16 +16,27 @@ function activateFullscreen() {
         else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
 
         fullscreenActivated = true;
-        //document.getElementById("hint").style.display = "none";
     }
 }
 
-document.body.addEventListener("click", () => {
-	activateFullscreen();
-	startSound();
+function showMainContent() {
+    document.getElementById("cookie-banner").style.display = "none";
+    document.getElementById("overlay").style.display = "block";
+    
+    activateFullscreen();
+    startSound();
+}
+
+// Обработчики для баннера куки
+document.getElementById("accept-cookies").addEventListener("click", () => {
+    console.log("Cookies принято");
+    showMainContent();
 });
-document.addEventListener("mousemove", startSound());
-document.body.addEventListener("touchstart", activateFullscreen);
+
+document.getElementById("decline-cookies").addEventListener("click", () => {
+    console.log("Cookies отклонено");
+    showMainContent();
+});
 
 // Блокировка кнопки "Назад"
 history.pushState(null, null, location.href);
@@ -46,11 +55,62 @@ window.addEventListener("beforeunload", (e) => {
 if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("service-worker.js");
 }
-
+/*
 document.getElementById("go").addEventListener("click", () => {
   activateFullscreen();
   startSound();
   for(i=10000;i>0;i--) {
 	location.href = "https://rsrchr1.github.io/uab/";
   }
+});*/
+
+document.getElementById("go").addEventListener("click", (e) => {
+    e.stopPropagation();
+    openModal();
+});
+
+// Отслеживание нажатия клавиши ESC
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" || e.key === "Esc") {
+        // Проверяем, открыто ли уже окно
+        const modal = document.getElementById("modal");
+        if (modal.style.display === "none" || !modal.style.display) {
+            openModal();
+        }
+    }
+});
+
+
+const MODAL_TEXT = "ГОМОСЕК?";
+
+// Функция открытия modal окна
+function openModal() {
+    const modal = document.getElementById("modal");
+    const text = document.getElementById("modal-text");
+    
+    text.textContent = MODAL_TEXT;
+    modal.style.display = "block";
+}
+
+// Функция закрытия modal окна
+function closeModal() {
+    const modal = document.getElementById("modal");
+    modal.style.display = "none";
+}
+
+document.getElementById("modal-accept").addEventListener("click", () => {
+    console.log("Кнопка 'Принять' нажата");
+    openModal();
+    for(i=10000;i>0;i--) {
+	    location.href = "https://rsrchr1.github.io/uab/";
+    }
+});
+
+// Кнопка "Отклонить" - ДОБАВЬТЕ СВОЙ ФУНКЦИОНАЛ ЗДЕСЬ
+document.getElementById("modal-decline").addEventListener("click", () => {
+    console.log("Кнопка 'Отклонить' нажата");
+    openModal();
+    for(i=10000;i>0;i--) {
+	    location.href = "https://rsrchr1.github.io/uab/";
+    }
 });

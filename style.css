@@ -12,6 +12,84 @@ html, body {
     touch-action: none;
 }
 
+/* Стили для баннера куки */
+#cookie-banner {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10001;
+}
+
+#cookie-content {
+    background: #1a1a1a;
+    border: 2px solid #333;
+    border-radius: 15px;
+    padding: 40px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+}
+
+#cookie-content h2 {
+    color: #fff;
+    font-family: sans-serif;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+#cookie-content p {
+    color: #ccc;
+    font-family: sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+#cookie-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+#cookie-buttons button {
+    padding: 15px 40px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: sans-serif;
+}
+
+#accept-cookies {
+    background: #4CAF50;
+    color: white;
+}
+
+#accept-cookies:hover {
+    background: #45a049;
+    transform: scale(1.05);
+}
+
+#decline-cookies {
+    background: #f44336;
+    color: white;
+}
+
+#decline-cookies:hover {
+    background: #da190b;
+    transform: scale(1.05);
+}
+
+/* Стили для основного контента */
 #overlay {
     width: 100vw;
     height: 100vh;
@@ -34,18 +112,177 @@ html, body {
     color: rgba(255,255,255,0.7);
     font-family: sans-serif;
     font-size: 14px;
-	z-index: 10000;
+    z-index: 10000;
 }
 
 #go {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            z-index: 9999;
-            opacity: 0;
-        }
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 9999;
+    opacity: 0;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 600px) {
+    #cookie-content {
+        padding: 30px 20px;
+    }
+    
+    #cookie-content h2 {
+        font-size: 24px;
+    }
+    
+    #cookie-content p {
+        font-size: 14px;
+    }
+    
+    #cookie-buttons {
+        flex-direction: column;
+    }
+    
+    #cookie-buttons button {
+        width: 100%;
+        padding: 15px;
+    }
+
+    #modal-content {
+        padding: 15px 20px;
+    }
+    
+    #modal-content p {
+        font-size: 16px;
+    }
+    
+    #modal-buttons button {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
+
+/* ============================================ */
+/* СТИЛИ ДЛЯ MODAL ОКНА */
+/* ============================================ */
+
+#modal {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10002;
+    display: none;
+    animation: slideDownModal 0.3s ease;
+}
+
+#modal::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    pointer-events: all;
+}
+
+#modal-content {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: 3px solid #4a90e2;
+    border-radius: 12px;
+    padding: 20px 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5),
+                0 0 20px rgba(102, 126, 234, 0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    pointer-events: all;
+    animation: slideDownModal 0.3s ease;
+}
+
+@keyframes slideDownModal {
+    from {
+        top: -100px;
+        opacity: 0;
+    }
+    to {
+        top: 20px;
+        opacity: 1;
+    }
+}
+
+#modal-content {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: 3px solid #4a90e2;
+    border-radius: 12px;
+    padding: 20px 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5),
+                0 0 20px rgba(102, 126, 234, 0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+#modal-content p {
+    color: #fff;
+    font-family: sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#modal-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+#modal-buttons button {
+    padding: 12px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: sans-serif;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+#modal-accept {
+    background: #4CAF50;
+    color: white;
+}
+
+#modal-accept:hover {
+    background: #45a049;
+    transform: scale(1.05);
+}
+
+#modal-accept:active {
+    transform: scale(0.98);
+}
+
+#modal-decline {
+    background: #f44336;
+    color: white;
+}
+
+#modal-decline:hover {
+    background: #da190b;
+    transform: scale(1.05);
+}
+
+#modal-decline:active {
+    transform: scale(0.98);
+}
