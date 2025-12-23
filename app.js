@@ -52,9 +52,9 @@ window.addEventListener("beforeunload", (e) => {
 });
 
 // Регистрация service worker (для PWA)
-if ("serviceWorker" in navigator) {
+/*if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("service-worker.js");
-}
+}*/
 /*
 document.getElementById("go").addEventListener("click", () => {
   activateFullscreen();
